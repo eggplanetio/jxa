@@ -17,9 +17,9 @@ function dereference(path, args) {
         args = args ? JSON.stringify(args) : '';
         args = args.substr(1, args.length - 2);
 
-        var cmd = `osascript -l JavaScript -e 'JSON.stringify(${path}(${args}));'`
-        var res = exec(cmd, { stdio: '' }).toString().trim();
-        return JSON.parse(res);
+        var cmd = `osascript -l JavaScript -e '${path}(${args})'`
+        var res = exec(cmd, { stdio: 'pipe' }).toString().trim();
+        return createReference(res);
     } catch(e) {
       //console.log(e);
     }
