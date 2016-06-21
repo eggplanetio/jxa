@@ -19,9 +19,13 @@ function dereference(path, args) {
 
         var cmd = `osascript -l JavaScript -e '${path}(${args})'`
         var res = exec(cmd, { stdio: 'pipe' }).toString().trim();
-        return createReference(res);
+        if (res.indexOf("Application") === 0) {
+          return createReference(res);
+        } else {
+          return res;
+        }
     } catch(e) {
-      //console.log(e);
+      // console.log(e);
     }
 };
 
